@@ -1,7 +1,7 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema",
-    "$id": "https://raw.githubusercontent.com/nf-core/postcuration/master/assets/schema_input.json",
-    "title": "nf-core/postcuration pipeline - params.input schema",
+    "$id": "https://raw.githubusercontent.com/OceanOmics-OceanGenomes-post-curation/master/assets/schema_input.json",
+    "title": "OceanOmics-OceanGenomes-post-curation - params.input schema",
     "description": "Schema for the file provided with params.input",
     "type": "array",
     "items": {
@@ -11,23 +11,45 @@
                 "type": "string",
                 "pattern": "^\\S+$",
                 "errorMessage": "Sample name must be provided and cannot contain spaces",
-                "meta": ["id"]
+                "meta": ["sample"]
             },
-            "fastq_1": {
+            "hic_dir": {
+                "type": "string",
+                "format": "directory-path",
+                "description": "Path to HiC fastq files",
+                "errorMessage": "HiC directory must be provided",
+                "meta": ["hic_dir"]
+            },
+            "assembly": {
                 "type": "string",
                 "format": "file-path",
-                "exists": true,
-                "pattern": "^\\S+\\.f(ast)?q\\.gz$",
-                "errorMessage": "FastQ file for reads 1 must be provided, cannot contain spaces and must have extension '.fq.gz' or '.fastq.gz'"
+                "description": "Path to combined assembly file",
+                "errorMessage": "Assembly file must be provided",
+                "meta": ["assembly"]
             },
-            "fastq_2": {
+            "meryldb": {
+                "type": "string",
+                "format": "directory-path",
+                "description": "Path to meryldb directory",
+                "errorMessage": "Meryldb directory must be provided",
+                "meta": ["meryldb"]
+            },
+            "agp": {
                 "type": "string",
                 "format": "file-path",
-                "exists": true,
-                "pattern": "^\\S+\\.f(ast)?q\\.gz$",
-                "errorMessage": "FastQ file for reads 2 cannot contain spaces and must have extension '.fq.gz' or '.fastq.gz'"
+                "description": "Path to AGP file",
+                "errorMessage": "AGP file must be provided",
+                "meta" : ["agp"]
+            },
+            "version": {
+                "type": "string",
+                "meta": ["version"]
+            },
+            "date": {
+                "type": "string",
+                "meta": ["date"]
             }
-        },
-        "required": ["sample", "fastq_1"]
+            },
+            "required": ["sample", "hic_dir", "assembly", "meryldb", "agp", "version", "date"]
+        }
     }
-}

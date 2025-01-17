@@ -4,7 +4,7 @@
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
-include { FASTQC                 } from '../modules/nf-core/fastqc/main'
+include { RAPID_CURATION         } from '../modules/local/rapid-curation/'
 include { MULTIQC                } from '../modules/nf-core/multiqc/main'
 include { paramsSummaryMap       } from 'plugin/nf-validation'
 include { paramsSummaryMultiqc   } from '../subworkflows/nf-core/utils_nfcore_pipeline'
@@ -27,14 +27,55 @@ workflow POSTCURATION {
     ch_versions = Channel.empty()
     ch_multiqc_files = Channel.empty()
 
+    ///
+    /// Create input channels
+    ///
+    ch_hic = ch_samplesheet
+        .map { meta ->
+            if (meta.hic_dir != null) {
+                def new_meta = meta.clone()
+                new_meta.id = "${new_meta.sample}_${new_meta.date}.${new_meta.version}"
+                return [ new_meta, new_meta.hic_dir ]
+            }
+        }
+        .filter { it != null }
+
+    ch_assembly = ch_samplesheet
+        .map { meta ->
+            def new_meta = meta.clone()
+            new_meta.id = "${new_meta.sample}_${new_meta.date}.${new_meta.version}"
+            return [ new_meta, new_meta.assembly ]
+        }
+        .filter { meta, assembly -> assembly != null }
+
+    ch_agp = ch_samplesheet
+        .map { meta ->
+            def new_meta = meta.clone()
+            new_meta.id = "${new_meta.sample}_${new_meta.date}.${new_meta.version}"
+            return [ new_meta, new_meta.agp ]
+        }
+        .filter { meta, agp -> agp != null }
+
+    ch_meryldb = ch_samplesheet
+        .map { meta ->
+            def new_meta = meta.clone()
+            new_meta.id = "${new_meta.sample}_${new_meta.date}.${new_meta.version}"
+            return [ new_meta, new_meta.meryldb ]
+        }
+        .filter { meta, meryldb -> meryldb != null }
+
     //
-    // MODULE: Run FastQC
+    // MODULE: Run curation_pipe
     //
-    FASTQC (
-        ch_samplesheet
-    )
-    ch_multiqc_files = ch_multiqc_files.mix(FASTQC.out.zip.collect{it[1]})
-    ch_versions = ch_versions.mix(FASTQC.out.versions.first())
+    // Create a channel with AGP and assembly files
+    agp_assembly_ch = ch_assembly.join(ch_agp)
+        .map { meta, assembly, agp -> 
+            return [meta, assembly, agp]
+        }
+
+    RAPID_CURATION(agp_assembly_ch)
+    ch_versions = ch_versions.mix(RAPID_CURATION.out.versions.first())
+
 
     //
     // Collate and save software versions
