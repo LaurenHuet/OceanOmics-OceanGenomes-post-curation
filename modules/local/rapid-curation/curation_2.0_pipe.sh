@@ -14,7 +14,7 @@ fasta=""
 agpfile=""
 hap=""
 
-while getopts ":hf:a:p:" option; do
+while getopts ":hf:a:p:d:" option; do
     case $option in 
         h) #display Help
             Help
@@ -23,6 +23,8 @@ while getopts ":hf:a:p:" option; do
             fasta=$OPTARG;;
         a) #Pass Pretext generated AGP file of curated assembly
             agpfile=$OPTARG;;
+        d) #the path
+            pth=$OPTARG;;
     esac
 done
 
@@ -35,7 +37,7 @@ else
     exec 1<> logs/std.0.out
 fi 
 
-pth=/OceanOmics-OceanGenomes-post-curation/modules/local
+#pth=/OceanOmics-OceanGenomes-post-curation/modules/local/rapid-curation
 printf "Rapid-curation-2.0 scripts located in: $pth\n"
 
 ## Programs/tools

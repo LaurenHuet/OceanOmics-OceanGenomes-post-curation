@@ -22,7 +22,7 @@
             },
             "assembly": {
                 "type": "string",
-                "format": "file-path",
+                "format": "directory-path",
                 "description": "Path to combined assembly file",
                 "errorMessage": "Assembly file must be provided",
                 "meta": ["assembly"]
@@ -36,7 +36,7 @@
             },
             "agp": {
                 "type": "string",
-                "format": "file-path",
+                "format": "directory-path",
                 "description": "Path to AGP file",
                 "errorMessage": "AGP file must be provided",
                 "meta" : ["agp"]
@@ -48,8 +48,12 @@
             "date": {
                 "type": "string",
                 "meta": ["date"]
+            },
+            "genomesize": {
+                "type": "string",
+                "meta": ["genomesize"]
             }
             },
-            "required": ["sample", "hic_dir", "assembly", "meryldb", "agp", "version", "date"]
+            "required": ["sample", "hic_dir", "assembly", "meryldb", "agp", "version", "date", "genomesize"]
         }
     }

@@ -1,0 +1,1 @@
+ nextflow run main.nf -profile singularity --input assets/samplesheet.csv --buscodb /home/lhuet/buscodb/actinopterygii_odb10 --binddir /home --outdir /data/post-cur-test/OG47 -resume --tempdir /home/lhuet
