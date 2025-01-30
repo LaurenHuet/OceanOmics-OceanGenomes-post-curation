@@ -25,8 +25,7 @@ process MERQURY_MERQURY {
     tuple val(meta), path("*.spectra-asm.hist")  , emit: spectra_asm_hist
     tuple val(meta), path("*.spectra-asm.ln.png"), emit: spectra_asm_ln_png
     tuple val(meta), path("*.spectra-asm.st.png"), emit: spectra_asm_st_png
-    tuple val(meta), path("${prefix}.qv")        , emit: assembly_qv
-    tuple val(meta), path("${prefix}.*.qv")      , emit: scaffold_qv
+    tuple val(meta), path("*.curated.qv")           , emit: assembly_qv
     tuple val(meta), path("*.hist.ploidy")       , emit: read_ploidy
     tuple val(meta), path("*.hapmers.blob.png")  , emit: hapmers_blob_png           , optional: true
     path "versions.yml"                          , emit: versions
@@ -76,7 +75,7 @@ process MERQURY_MERQURY {
     touch ${prefix}.spectra-asm.hist
     touch ${prefix}.spectra-asm.ln.png
     touch ${prefix}.spectra-asm.st.png
-    touch ${prefix}.qv
+    touch *.curated.qv
     touch ${prefix}.${prefix}.qv
     touch ${prefix}.hist.ploidy
 

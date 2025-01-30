@@ -19,52 +19,63 @@
 
 ## Introduction
 
-**nf-core/postcuration** is a bioinformatics pipeline that ...
+**nf-core/postcuration** is a bioinformatics pipeline designed to generate curated hap1/hap2 assemblies and QC, following manual genome curation in PretextView. This pipeline requires an AGP file generated from PretextView, the assembly you wish to make changes to and raw hic data. 
 
-<!-- TODO nf-core:
-   Complete this sentence with a 2-3 sentence summary of what types of data the pipeline ingests, a brief overview of the
-   major pipeline sections and the types of output it produces. You're giving an overview to someone new
-   to nf-core here, in 15-20 seconds. For an example, see https://github.com/nf-core/rnaseq/blob/master/README.md#introduction
--->
+
 
 <!-- TODO nf-core: Include a figure that guides the user through the major workflow steps. Many nf-core
      workflows use the "tube map" design for that. See https://nf-co.re/docs/contributing/design_guidelines#examples for examples.   -->
 <!-- TODO nf-core: Fill in short bullet-pointed list of the default steps in the pipeline -->
 
-1. Read QC ([`FastQC`](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/))
-2. Present QC for raw reads ([`MultiQC`](http://multiqc.info/))
+1. Rapid Curation ([`RapidCuration`](Nadolina Brajuka Vertebrate Genome Laboratory))
+2. Mashmap ([`MashMap`](https://github.com/marbl/MashMap))
+3. Update Mapping ([`Update Mapping`](Tom Mathers Darwin Tree of Life))
+4. Busco ([`BUSCO`](https://busco.ezlab.org/))
+5. Merqury ([`Merqury`](https://github.com/marbl/merqury))
+6. Gfastats([`Gfastats`](https://github.com/vgl-hub/gfastats))
+7. Align reads to curated assembly (['Omnic'](https://omni-c.readthedocs.io/en/latest/))
+8. Generate Pretext Maps ([`PretextMap`](https://github.com/sanger-tol/PretextMap))
+9. Generate Pretext Snapshots([`Pretext Snapshot`](https://github.com/sanger-tol/PretextSnapshot))
+10. ([`MultiQC`](http://multiqc.info/))
+
 
 ## Usage
 
 > [!NOTE]
 > If you are new to Nextflow and nf-core, please refer to [this page](https://nf-co.re/docs/usage/installation) on how to set-up Nextflow. Make sure to [test your setup](https://nf-co.re/docs/usage/introduction#how-to-run-a-pipeline) with `-profile test` before running the workflow on actual data.
 
-<!-- TODO nf-core: Describe the minimum required steps to execute the pipeline, e.g. how to prepare samplesheets.
-     Explain what rows and columns represent. For instance (please edit as appropriate):
 
 First, prepare a samplesheet with your input data that looks as follows:
 
 `samplesheet.csv`:
 
 ```csv
-sample,fastq_1,fastq_2
-CONTROL_REP1,AEG588A1_S1_L002_R1_001.fastq.gz,AEG588A1_S1_L002_R2_001.fastq.gz
+sample,hic_dir,assembly,meryldb,agp,version,date,genomesize
+OG47,/path/to/hic/reads/,/path/to/assembly/,/path/to/meryl/database/OG47.meryl,/path/to/agp/file,hic1,v231115,637904034
 ```
 
-Each row represents a fastq file (single-end) or a pair of fastq files (paired end).
+Each row represents sample. All fields are mandatory, the hic_dir, assembly, merlydb and agp columns must point to a directory that contains the corrosponding file(s). 
 
 -->
 
 Now, you can run the pipeline using:
 
-<!-- TODO nf-core: update the following command to include all required parameters for a minimal example -->
 
 ```bash
-nextflow run nf-core/postcuration \
-   -profile <docker/singularity/.../institute> \
-   --input samplesheet.csv \
-   --outdir <OUTDIR>
+nextflow run main.nf \
+  --profile singularity \
+  --input assets/samplesheet.csv \
+  --buscodb /path/to/busco_db/ \
+  --binddir /scratch \
+  --outdir  \
+  -c pawsey_profile.config \
+  -resume \
+  --tempdir $MYSCRATCH
+
 ```
+
+Note, there is a nextflow_run.sh script in the repo that loads the nextflow module for running on pawsey. Fill out the feilds in this script to run the pipeline
+
 
 > [!WARNING]
 > Please provide pipeline parameters via the CLI or Nextflow `-params-file` option. Custom config files including those provided by the `-c` Nextflow option can be used to provide any configuration _**except for parameters**_;
@@ -84,7 +95,7 @@ nf-core/postcuration was originally written by Lauren Huet.
 
 We thank the following people for their extensive assistance in the development of this pipeline:
 
-<!-- TODO nf-core: If applicable, make list of people who have also contributed -->
+This workflow makes use of scripts written by Tom Mathers from the Darwin Tree of Life program (hap2_hap1_ID_mapping.sh and update_mapping.rb), and the Rapid Curation pipeline written by Nadolina Brajuka from the Vertebrate Genome Laboratory.
 
 ## Contributions and Support
 
@@ -94,10 +105,6 @@ For further information or help, don't hesitate to get in touch on the [Slack `#
 
 ## Citations
 
-<!-- TODO nf-core: Add citation for pipeline after first release. Uncomment lines below and update Zenodo doi and badge at the top of this file. -->
-<!-- If you use nf-core/postcuration for your analysis, please cite it using the following doi: [10.5281/zenodo.XXXXXX](https://doi.org/10.5281/zenodo.XXXXXX) -->
-
-<!-- TODO nf-core: Add bibliography of tools and data used in your pipeline -->
 
 An extensive list of references for the tools used by the pipeline can be found in the [`CITATIONS.md`](CITATIONS.md) file.
 

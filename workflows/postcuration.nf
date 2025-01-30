@@ -8,12 +8,17 @@ include { RAPID_CURATION            } from '../modules/local/rapid-curation/'
 include { MASHMAP                   } from '../modules/nf-core/mashmap/main'
 include { UPDATE_MAPPING            } from '../modules/local/update-mapping'
 include { BUSCO_BUSCO               } from '../modules/nf-core/busco/busco/main'
-include { MERQURY_MERQURY           } from '../modules/nf-core/merqury/merqury/main' 
+include { MERQURY_MERQURY           } from '../modules/nf-core/merqury/merqury/main'
 include { GFASTATS as GFASTATS_HAP1 } from '../modules/nf-core/gfastats/main'
 include { GFASTATS as GFASTATS_HAP2 } from '../modules/nf-core/gfastats/main'
+include { CALCULATE_STATS           } from '../modules/local/calculate_stats/main'
 include { CAT_HIC                   } from '../modules/local/cat_hic/main'
 include { OMNIC as OMNIC_HAP1       } from '../modules/local/omnic/main'
 include { OMNIC as OMNIC_HAP2       } from '../modules/local/omnic/main'
+include { PRETEXTMAP as PRETEXTMAP_HAP_1  } from '../modules/nf-core/pretextmap/main'
+include { PRETEXTMAP as PRETEXTMAP_HAP_2   } from '../modules/nf-core/pretextmap/main'
+include { PRETEXTSNAPSHOT as PRETEXTSNAPSHOT_HAP1  } from '../modules/nf-core/pretextsnapshot/main' 
+include { PRETEXTSNAPSHOT as PRETEXTSNAPSHOT_HAP2  } from '../modules/nf-core/pretextsnapshot/main' 
 include { MULTIQC                   } from '../modules/nf-core/multiqc/main'
 include { paramsSummaryMap          } from 'plugin/nf-validation'
 include { paramsSummaryMultiqc      } from '../subworkflows/nf-core/utils_nfcore_pipeline'
@@ -132,8 +137,12 @@ workflow POSTCURATION {
     //
 
     ch_assemblies = RAPID_CURATION.out.hap1.join(UPDATE_MAPPING.out.hap2_new) 
+                .map {
+                meta, hap1, hap2_new ->
+                    return [meta, [ hap1, hap2_new] ]
+            }
 
-    ch_merqury = ch_meryldb.join(ch_assemblies).view()
+    ch_merqury = ch_meryldb.join(ch_assemblies)
 
     MERQURY_MERQURY (
         ch_merqury,
@@ -182,8 +191,19 @@ workflow POSTCURATION {
         ch_hic
     )
 
+    ///
+    ///MODULE: Calculate stats
     //
-    // MODULE: Run Omnic Subworkflow
+    
+
+    CALCULATE_STATS (
+        RAPID_CURATION.out.hap1,
+        UPDATE_MAPPING.out.hap2_new
+    )
+
+    
+    //
+    // MODULE: Run Omnic
     //
 
 
@@ -214,6 +234,39 @@ workflow POSTCURATION {
     )
     ch_versions = ch_versions.mix(OMNIC_HAP2.out.versions.first())
 
+
+    //
+    // MODULE: Run Pretext Map
+    ///
+
+    PRETEXTMAP_HAP_1 (OMNIC_HAP1.out.omnic_bam,
+                        "hap1",
+                        "3.curated.")
+    
+    ch_versions = ch_versions.mix(PRETEXTMAP_HAP_1.out.versions.first())
+    
+    PRETEXTMAP_HAP_2 (OMNIC_HAP2.out.omnic_bam,
+                    "hap2",
+                    "3.curated")
+    
+    ch_versions = ch_versions.mix(PRETEXTMAP_HAP_1.out.versions.first())
+
+    
+    //
+    // MODULE: Run Pretext snapshot
+    //
+
+    PRETEXTSNAPSHOT_HAP1 (PRETEXTMAP_HAP_1.out.pretext_map,
+                        "hap1",
+                        "3.curated")  
+    
+    ch_versions = ch_versions.mix(PRETEXTSNAPSHOT_HAP1.out.versions.first())
+
+    PRETEXTSNAPSHOT_HAP2 (PRETEXTMAP_HAP_2.out.pretext_map,
+                    "hap2",
+                    "3.curated")
+    
+    ch_versions = ch_versions.mix(PRETEXTSNAPSHOT_HAP2.out.versions.first())
 
     //
     // Collate and save software versions

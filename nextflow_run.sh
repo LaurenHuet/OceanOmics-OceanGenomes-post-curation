@@ -1,1 +1,3 @@
- nextflow run main.nf -profile singularity --input assets/samplesheet.csv --buscodb /home/lhuet/buscodb/actinopterygii_odb10 --binddir /home --outdir /data/post-cur-test/OG47 -resume --tempdir /home/lhuet
+#!/bin/bash
+module load nextflow/24.04.3
+nextflow run main.nf -profile singularity --input assets/samplesheet.csv --buscodb /scratch/references/busco_db/actinopterygii_odb10 --binddir /scratch --outdir /scratch/pawsey0812/lhuet/post-curation-test/OG47 -c pawsey_profile.config -resume --tempdir $MYSCRATCH

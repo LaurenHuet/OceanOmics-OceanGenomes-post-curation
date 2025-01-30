@@ -1,3 +1,3 @@
 sample,hic_dir,assembly,meryldb,agp,version,date,genomesize
-OG47,/home/lhuet/post-curation/OG47/hic/,/home/lhuet/post-curation/OG47/assembly/,/home/lhuet/post-curation/OG47/meryl/OG47.meryl,/home/lhuet/post-curation/OG47/agp/,hic1,v231115,637904034
+OG47,/scratch/pawsey0812/lhuet/post-curation/OG47/data/raw/hic/,/scratch/pawsey0812/lhuet/post-curation/OG47/06-postcuration/assembly/,/scratch/pawsey0812/lhuet/post-curation/OG47/01-kmer-profiling/OG47.meryl,/scratch/pawsey0812/lhuet/post-curation/OG47/06-postcuration/agp,hic1,v231115,637904034
 

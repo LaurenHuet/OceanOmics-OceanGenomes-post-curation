@@ -6,7 +6,7 @@ process OMNIC {
     container "docker://sawtooth01/omnic:v0.01"
 
     input:
-    tuple val(meta), path(assembly), path(reads)
+    tuple val(meta), path(reads), path(assembly)
     val(haplotype)
     val(tempdir)
 
@@ -24,6 +24,7 @@ process OMNIC {
         def prefix = task.ext.prefix ?: "${meta.id}"
     
     """
+    export PATH=$PATH:/opt/conda/envs/pairtools/bin
     samtools faidx ${assembly} \
     && cut -f1,2 *.fai > "${meta.id}.${haplotype}.genome" \
     && bwa index ${assembly} \

@@ -19,8 +19,8 @@ process GFASTATS {
     path instructions                 // -k --swiss-army-knife <file> set of instructions provided as an ordered list.
 
     output:
-    tuple val(meta), path("*.assembly_summary"), emit: assembly_summary
-    tuple val(meta), path("*.${out_fmt}.gz")   , emit: assembly
+    tuple val(meta), path("*.assembly_summary.txt"), emit: assembly_summary
+    tuple val(meta), path("*.${out_fmt}")   , emit: assembly
     path "versions.yml"                        , emit: versions
 
     when:
@@ -56,8 +56,8 @@ process GFASTATS {
     stub:
     def prefix = task.ext.prefix ?: "${meta.id}"
     """
-    touch ${prefix}.${out_fmt}.gz
-    touch ${prefix}.assembly_summary
+    touch ${prefix}.${out_fmt}
+    touch ${prefix}.assembly_summary.txt
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
