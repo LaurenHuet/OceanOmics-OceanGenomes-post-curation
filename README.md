@@ -27,16 +27,17 @@
      workflows use the "tube map" design for that. See https://nf-co.re/docs/contributing/design_guidelines#examples for examples.   -->
 <!-- TODO nf-core: Fill in short bullet-pointed list of the default steps in the pipeline -->
 
-1. Rapid Curation ([`RapidCuration`](Nadolina Brajuka Vertebrate Genome Laboratory))
+1. Rapid Curation written by Nadolina Brajuka, Vertebrate Genome Laboratory
 2. Mashmap ([`MashMap`](https://github.com/marbl/MashMap))
-3. Update Mapping ([`Update Mapping`](Tom Mathers Darwin Tree of Life))
+3. Update Mapping written by Tom Mathers, Darwin Tree of Life
 4. Busco ([`BUSCO`](https://busco.ezlab.org/))
 5. Merqury ([`Merqury`](https://github.com/marbl/merqury))
 6. Gfastats([`Gfastats`](https://github.com/vgl-hub/gfastats))
-7. Align reads to curated assembly (['Omnic'](https://omni-c.readthedocs.io/en/latest/))
-8. Generate Pretext Maps ([`PretextMap`](https://github.com/sanger-tol/PretextMap))
-9. Generate Pretext Snapshots([`Pretext Snapshot`](https://github.com/sanger-tol/PretextSnapshot))
-10. ([`MultiQC`](http://multiqc.info/))
+7. Caluclate statistics written by Emma de Jong Minderoo OceanOmics
+8. Align reads to curated assembly ([`Omnic`](https://omni-c.readthedocs.io/en/latest/))
+9. Generate Pretext Maps ([`PretextMap`](https://github.com/sanger-tol/PretextMap))
+10. Generate Pretext Snapshots([`Pretext Snapshot`](https://github.com/sanger-tol/PretextSnapshot))
+11. ([`MultiQC`](http://multiqc.info/))
 
 
 ## Usage
