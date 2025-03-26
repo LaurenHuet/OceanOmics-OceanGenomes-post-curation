@@ -89,16 +89,17 @@ for line in agp_list:
 haplotigs_list=[agp_df.iloc[ind].tolist() for ind in haplotigs]
 
 
-with open ((outdir+'/hap.unlocs.no_hapdups.agp'),'w',newline='\n') as f:
+with open(f'{outdir}/hap.unlocs.no_hapdups.agp','w',newline='\n') as f:
     writer=csv.writer(f,delimiter='\t')
     writer.writerows(header)
     writer.writerows(final_list)
 f.close()
 
-with open ((outdir+'/haplotigs.agp'),'w',newline='\n') as h:
+with open(f'{outdir}/haplotigs.agp','w',newline='\n') as h:
     writer=csv.writer(h,delimiter='\t')
     writer.writerows(haplotigs_list)
 h.close()
+
 
 
 #---------------------------------------------------

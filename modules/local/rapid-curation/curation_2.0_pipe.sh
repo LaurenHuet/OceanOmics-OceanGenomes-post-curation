@@ -23,8 +23,6 @@ while getopts ":hf:a:p:d:" option; do
             fasta=$OPTARG;;
         a) #Pass Pretext generated AGP file of curated assembly
             agpfile=$OPTARG;;
-        d) #the path
-            pth=$OPTARG;;
     esac
 done
 
@@ -37,7 +35,7 @@ else
     exec 1<> logs/std.0.out
 fi 
 
-#pth=/OceanOmics-OceanGenomes-post-curation/modules/local/rapid-curation
+pth=/scratch/pawsey0812/lhuet/OceanOmics-OceanGenomes-post-curation/modules/local/rapid-curation
 printf "Rapid-curation-2.0 scripts located in: $pth\n"
 
 ## Programs/tools
@@ -62,8 +60,8 @@ python3 $pth/hap_split.py
 printf "Assigning unlocs before the agp is imposed on the fasta.\n"
 printf "python3 $pth/unloc.py Hap_1\n" 
 printf "python3 $pth/unloc.py Hap_2\n\n"
-python3 $pth/unloc.py Hap_1
-python3 $pth/unloc.py Hap_2
+python3 $pth/unloc.py $(pwd)/Hap_1
+python3 $pth/unloc.py $(pwd)/Hap_2
 
 printf "Imposing the haplotypic agp on the original fasta to generate a curated fasta.\n"
 printf "gfastats $fasta --agp-to-path Hap_1/hap.unlocs.no_hapdups.agp --sort largest -o Hap_1/hap.sorted.fa\n"

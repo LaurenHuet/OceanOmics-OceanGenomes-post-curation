@@ -23,7 +23,7 @@ process RAPID_CURATION {
     def prefix = task.ext.prefix ?: "${meta.id}"
     """
     echo hello > test.txt
-    bash ${moduleDir}/curation_2.0_pipe.sh -f ${fasta}/* -a ${agp}/* -d ${moduleDir}
+    bash ${moduleDir}/curation_2.0_pipe.sh -f ${fasta}/* -a ${agp}/* 
 
     # Rename the chr_level.fa files
     if [ -f Hap_1/hap.chr_level.fa ]; then
