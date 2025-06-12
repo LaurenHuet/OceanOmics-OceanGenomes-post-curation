@@ -186,6 +186,7 @@ workflow POSTCURATION {
     //
     // MODULE: Cat hic reads
     //
+    ch_hic.view()
 
     CAT_HIC (
         ch_hic
@@ -194,7 +195,8 @@ workflow POSTCURATION {
     ///
     ///MODULE: Calculate stats
     //
-    
+    RAPID_CURATION.out.hap1.view()
+    UPDATE_MAPPING.out.hap2_new.view()
 
     CALCULATE_STATS (
         RAPID_CURATION.out.hap1,

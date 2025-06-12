@@ -1,6 +1,6 @@
 process MERQURY_MERQURY {
     tag "$meta.id"
-    label 'process_low'
+    label 'process_medium'
 
     // WARN: Version information not provided by tool on CLI. Please update this string when bumping container versions.
     conda "${moduleDir}/environment.yml"
@@ -13,8 +13,8 @@ process MERQURY_MERQURY {
     val(asmversion)
 
     output:
-    tuple val(meta), path("*_only.bed")          , emit: assembly_only_kmers_bed
-    tuple val(meta), path("*_only.wig")          , emit: assembly_only_kmers_wig
+    tuple val(meta), path("*_only.bed")          , emit: assembly_only_kmers_bed, optional: true
+    tuple val(meta), path("*_only.wig")          , emit: assembly_only_kmers_wig, optional: true
     tuple val(meta), path("*.completeness.stats"), emit: stats
     tuple val(meta), path("*.dist_only.hist")    , emit: dist_hist
     tuple val(meta), path("*.spectra-cn.fl.png") , emit: spectra_cn_fl_png
