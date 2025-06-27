@@ -12,7 +12,7 @@ process CALCULATE_STATS {
 
     output:
     tuple val(meta), path("*stats_output.txt"), emit: stats_output
-    tuple val(meta), path ("percentage_stats_output.txt"), emit: percentage_stats
+    tuple val(meta), path ("*.percentage_stats_output.txt"), emit: percentage_stats
     path "versions.yml", emit: versions
 
     when:
@@ -30,6 +30,7 @@ process CALCULATE_STATS {
 
     bash ${moduleDir}/calculate_stats.sh "${prefix}.stats_output.txt" "${hap1}" "${hap2_new}"
 
+    mv percentage_stats_output.txt ${prefix}.percentage_stats_output.txt
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

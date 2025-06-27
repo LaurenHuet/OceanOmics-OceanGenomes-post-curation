@@ -1,7 +1,7 @@
 #!/bin/bash
 
 output_file="stats_compiled.tsv"
-base_dir="/scratch/pawsey0964/lhuet/post-curation/OG*"
+base_dir="/scratch/pawsey0964/lhuet/refgenomes/post-curation_1/OG*"
 
 # Write header
 echo -e "file\tformat\ttype\tnum_seqs\tsum_len\tmin_len\tavg_len\tmax_len" > "$output_file"
@@ -14,14 +14,18 @@ find $base_dir -name "*.stats_output.txt" | while read -r file; do
     # Extract full filename (first column)
     original_filename=$(echo "$line" | awk '{print $1}')
 
-    # Extract prefix — detect both dot and underscore joins
-    if [[ "$original_filename" =~ ^(OG[0-9]+_[0-9]+)\.(hic[0-9]+)[._] ]]; then
-      og_id="${BASH_REMATCH[1]}"
-      hic_part="${BASH_REMATCH[2]}"
-      rest=$(echo "$original_filename" | sed "s/^${og_id}[._]${hic_part}[._]*//")
+    haplo=""
+    if [[ "$original_filename" == *hap1* ]]; then
+      haplo="hap1"
+    elif [[ "$original_filename" == *hap2* ]]; then
+      haplo="hap2"
+    fi
 
-      # Assemble new name with "3.curated" inserted
-      corrected_name="${og_id}.${hic_part}.3.curated.${rest}"
+    if [[ "$original_filename" =~ ^(OG[0-9]+_v[0-9]+)\.hic([0-9]+)[._](.*)$ ]]; then
+      og_id="${BASH_REMATCH[1]}"
+      hic_part="hic${BASH_REMATCH[2]}"
+      # Reconstruct the filename with "3.curated" and haplo
+      corrected_name="${og_id}.${hic_part}.3.curated.${haplo}"
     else
       echo "⚠️ Could not match pattern in: $original_filename" >&2
       corrected_name="$original_filename"

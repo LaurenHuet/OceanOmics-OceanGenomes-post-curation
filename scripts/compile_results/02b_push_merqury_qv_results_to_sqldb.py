@@ -2,6 +2,8 @@ import psycopg2
 import pandas as pd
 import numpy as np  # Required for handling infinity values
 
+## run using singularity run $SING/psycopg2:0.1.sif python 02b_push_merqury_qv_results_to_sqldb.py
+
 # PostgreSQL connection parameters
 db_params = {
     'dbname': 'oceanomics',

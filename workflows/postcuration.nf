@@ -195,15 +195,17 @@ workflow POSTCURATION {
     ///
     ///MODULE: Calculate stats
     //
-    RAPID_CURATION.out.hap1.view()
-    UPDATE_MAPPING.out.hap2_new.view()
+// Join hap1 and hap2_new by meta to ensure same sample pairing
+    ch_calculate_stats_joined = RAPID_CURATION.out.hap1.join(UPDATE_MAPPING.out.hap2_new)
 
-    CALCULATE_STATS (
-        RAPID_CURATION.out.hap1,
-        UPDATE_MAPPING.out.hap2_new
-    )
+// Create separate channels for each input while maintaining pairing
+    ch_hap1_for_stats = ch_calculate_stats_joined.map { meta, hap1, hap2_new -> [meta, hap1] }
+    ch_hap2_for_stats = ch_calculate_stats_joined.map { meta, hap1, hap2_new -> [meta, hap2_new] }
 
-    
+CALCULATE_STATS (
+    ch_hap1_for_stats,
+    ch_hap2_for_stats
+)
     //
     // MODULE: Run Omnic
     //
