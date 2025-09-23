@@ -24,7 +24,7 @@
 
 
 <p align="center">
-    <img src="docs/images/post-curation-overview.png" alt="OceanOmics Post Curation Pipeline Overview" width="100%">
+    <img src="docs/images/post-curation-pipeline-overview.png" alt="OceanOmics Post Curation Pipeline Overview" width="100%">
 </p>
 
 1. Rapid Curation written by Nadolina Brajuka, Vertebrate Genome Laboratory
