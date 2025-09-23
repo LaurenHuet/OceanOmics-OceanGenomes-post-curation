@@ -1,7 +1,7 @@
 #!/bin/bash
 
 output_file="stats_compiled.tsv"
-base_dir="/scratch/pawsey0964/lhuet/refgenomes/post-curation_1/OG*"
+base_dir="/scratch/pawsey0964/lhuet/post_curation/post-curation/OG*"
 
 # Write header
 echo -e "file\tformat\ttype\tnum_seqs\tsum_len\tmin_len\tavg_len\tmax_len" > "$output_file"

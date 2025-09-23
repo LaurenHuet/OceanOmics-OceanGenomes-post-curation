@@ -1,7 +1,7 @@
 #!/bin/bash
 
 output_file="merqury.completeness.stats.tsv"
-base_dir="/scratch/pawsey0964/lhuet/refgenomes/post-curation_1/OG*"
+base_dir="/scratch/pawsey0964/lhuet/post_curation/post-curation/OG*"
 
 # Write header
 echo -e "sample\tsolid_k_mers\ttotal_k_mers\tcompleteness" > "$output_file"

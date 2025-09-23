@@ -62,4 +62,4 @@ mv ${OG}/calculate_stats/percentage_stats_output.txt" ${OG}/calculate_stats/${as
 rclone copy "${OG}/calculate_stats/${asm_ver}.percentage_stats_output.txt" "pawsey0964:oceanomics-refassemblies/${sample}/${asm_ver}/stats" --checksum --progress
 
 # MultiQC (assuming fixed location)
-#rclone copy multiqc "pawsey0964:oceanomics-refassemblies/postcuration_multiqc" --checksum --progress
+rclone copy multiqc "pawsey0964:oceanomics-refassemblies/postcuration_multiqc" --checksum --progress

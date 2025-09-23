@@ -49,7 +49,7 @@ process MERQURY_MERQURY {
     export OMP_NUM_THREADS=$task.cpus
 
     merqury.sh \\
-        $meryl_db \\
+        ${meryl_db}/*.meryl \\
         $assembly \\
         ${prefix}.${asmversion}
 

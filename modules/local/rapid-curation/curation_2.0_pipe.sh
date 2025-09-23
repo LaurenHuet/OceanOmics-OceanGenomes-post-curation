@@ -35,7 +35,7 @@ else
     exec 1<> logs/std.0.out
 fi 
 
-pth=/scratch/pawsey0964/lhuet/refgenomes/OceanOmics-OceanGenomes-post-curation/modules/local/rapid-curation
+pth=/scratch/pawsey0964/lhuet/post_curation/OceanOmics-OceanGenomes-post-curation/modules/local/rapid-curation
 printf "Rapid-curation-2.0 scripts located in: $pth\n"
 
 ## Programs/tools

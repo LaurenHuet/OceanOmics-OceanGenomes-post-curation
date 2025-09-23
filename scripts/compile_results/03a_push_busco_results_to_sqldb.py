@@ -7,10 +7,10 @@ import numpy as np  # Required for handling infinity values
 
 # PostgreSQL connection parameters
 db_params = {
-    'dbname': 'oceanomics',
+    'dbname': 'oceanomics_genomes',
     'user': 'postgres',
     'password': 'oceanomics',
-    'host': '203.101.227.69',
+    'host': '131.217.178.144',
     'port': 5432
 }
 

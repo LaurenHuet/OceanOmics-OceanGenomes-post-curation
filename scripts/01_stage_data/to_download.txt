@@ -1,0 +1,2 @@
+5142455749 OG39/meryl/OG39_v250331.hic1.meryl.tar.gz
+1062261906 OG39/OG39_v250331.hic1/assembly/OG39_v250331.hic1.2.tiara.hap1.hap2_combined_scaffolds.fa

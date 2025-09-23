@@ -6,13 +6,12 @@ import numpy as np
 
 # PostgreSQL connection parameters
 db_params = {
-    'dbname': 'oceanomics',
+    'dbname': 'oceanomics_genomes',
     'user': 'postgres',
     'password': 'oceanomics',
-    'host': '203.101.227.69',
+    'host': '131.217.178.144',
     'port': 5432
 }
-
 # File paths
 input_file = "stats_compiled.tsv"
 output_file = "stats_compiled_split.tsv"

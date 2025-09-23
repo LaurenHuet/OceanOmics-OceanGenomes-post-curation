@@ -1,7 +1,7 @@
 #!/bin/bash
 
 output_file="merqury.qv.curated.stats.tsv"
-base_dir="/scratch/pawsey0964/lhuet/refgenomes/post-curation/*"
+base_dir="/scratch/pawsey0964/lhuet/post_curation/post-curation/*"
 echo -e "sample\tunique_k_mers_assembly\tk_mers_total\tqv\terror" > "$output_file"
 
 # Find all .curated.qv files

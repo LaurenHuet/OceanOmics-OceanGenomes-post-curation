@@ -1,4 +1,4 @@
-scripts=/scratch/pawsey0964/lhuet/refgenomes/OceanOmics-OceanGenomes-post-curation/scripts/backup_scripts
+scripts=/scratch/pawsey0964/lhuet/post_curation/OceanOmics-OceanGenomes-post-curation/scripts
 
 csv_file="$scripts/backup.csv"
 
