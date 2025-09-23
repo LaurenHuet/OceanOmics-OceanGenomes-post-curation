@@ -23,9 +23,9 @@
 
 
 
-<!-- TODO nf-core: Include a figure that guides the user through the major workflow steps. Many nf-core
-     workflows use the "tube map" design for that. See https://nf-co.re/docs/contributing/design_guidelines#examples for examples.   -->
-<!-- TODO nf-core: Fill in short bullet-pointed list of the default steps in the pipeline -->
+<p align="center">
+    <img src="docs/images/post-curation-overview.png" alt="OceanOmics Post Curation Pipeline Overview" width="100%">
+</p>
 
 1. Rapid Curation written by Nadolina Brajuka, Vertebrate Genome Laboratory
 2. Mashmap ([`MashMap`](https://github.com/marbl/MashMap))
