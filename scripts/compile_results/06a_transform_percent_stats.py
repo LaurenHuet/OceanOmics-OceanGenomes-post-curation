@@ -1,10 +1,12 @@
 import pandas as pd
 
+
+# run with  singularity run $SING/python-pandas:1.5.3.sif python 06a_transform_percent_stats.py
 # Input and output
 input_file = "percentage_stats_compiled.tsv"
 output_file = "percentage_stats_split.tsv"
 
-print(f"📥 Reading {input_file}...")
+print(f"Reading {input_file}...")
 
 # Load original wide-format table
 df = pd.read_csv(input_file, sep="\t", dtype=str)
