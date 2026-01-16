@@ -28,8 +28,21 @@ BASE_ROOT = "/scratch/pawsey0964/lhuet/post_curation"
 # OG IDs for the samplesheet (edit as needed)
 # =====================================
 og_ids = [
-    'OG39',
-    'OG859'
+    'OG114',
+    'OG99',
+    'OG784',
+    'OG758',
+    'OG57',
+    'OG58',
+    'OG758',
+    'OG784',
+    'OG54',
+    'OG666',
+    'OG679',
+    'OG681',
+    'OG686',
+    'OG748'
+
 ]
 
 # =====================================
